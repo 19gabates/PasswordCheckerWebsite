@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Password Checker</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+         <a class="navbar-brand" href="#">Password Checker</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="future.html">The Future of Passwords <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="crack.html">Time to Crack <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="generate.html">Generate Password <span class="sr-only">(current)</span></a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <div class="container mt-5">
+         <div class="jumbotron">
+            <h1 class="display-4">Time to Crack</h1>
+            <p class="lead">This page is used to estimate the time to crack you password.</p>
+            <hr class="my-4">
+         </div>
+         <div class="container mt-5">
+            <section>
+               <h2 class="mb-4">What is Password Cracking?</h2>
+               <p>Password cracking is the process of attempting unauthorized access by deciphering passwords. This involves systematically trying various combinations of characters using methods like brute-force attacks, dictionary attacks, and more advanced techniques. The aim is to exploit weak or easily guessable passwords, underscoring the need for robust security measures to prevent unauthorized access.</p>
+               <!-- Add more content here -->
+            </section>
+         </div>
+         <form id="passwordForm">
+            <div class="form-group">
+               <label for="passwordInput">Enter Password to Check How Easy it is to Crack:</label>
+               <input type="password" class="form-control" id="passwordInput" name="password" required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="checkPassword()">Check Password</button>
+         </form>
+         <!-- Display result here -->
+         <div id="resultContainer" class="mt-3"></div>
+         <script>
+            function checkPassword() {
+                // Get the form data
+                var formData = new FormData(document.getElementById("passwordForm"));
+            
+                // Display a loading message
+                document.getElementById("resultContainer").innerHTML = '<p class="text-info">Checking password...</p>';
+            
+                // Send the form data to the PHP script using AJAX
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "check_password.php", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        // Update the result container with the response from the server
+                        document.getElementById("resultContainer").innerHTML = xhr.responseText;
+                    }
+                };
+                xhr.send(formData);
+            }
+         </script>
+         <div class="container mt-5">
+            <section>
+               <h2 class="mb-4">What is rockyou.txt</h2>
+               <p>RockYou.txt is a widely used password list derived from a 2009 data breach. It contains commonly used passwords and is employed in password cracking for brute-force or dictionary attacks. Hackers often use it to check against user accounts due to its extensive collection of easily guessable passwords, emphasizing the importance of avoiding common choices for enhanced digital security.</p>
+               <!-- Add more content here -->
+            </section>
+         </div>
+      </div>
+      <footer class="bg-dark text-light mt-5">
+         <div class="container py-3">
+            <div class="row">
+               <div class="col-md-6">
+                  <p>&copy; 2023 Password Checker</p>
+               </div>
+               <div class="col-md-6 text-md-right">
+                  <p>Contact: contact@passwordchecker.com</p>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- Bootstrap JS (Popper.js and Bootstrap.js) -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   </body>
+</html>

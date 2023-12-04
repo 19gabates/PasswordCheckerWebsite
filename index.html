@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Password Checker</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+         <a class="navbar-brand" href="#">Password Checker</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="future.html">The Future of Passwords <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="crack.html">Time to Crack <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="generate.html">Generate Password <span class="sr-only">(current)</span></a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <div class="container mt-5">
+         <div class="jumbotron">
+            <h1 class="display-4">Password Checker Website</h1>
+            <p class="lead">Use this website to check the strength of your passwords.</p>
+            <hr class="my-4">
+         </div>
+         <!-- ... (previous HTML code) ... -->
+         <div class="row">
+            <div class="col-md-6">
+               <h2>Password Security Checker</h2>
+               <form id="passwordForm">
+                  <div class="form-group">
+                     <label for="password">Check for Basic Security Reccomendations:</label>
+                     <input type="password" class="form-control" id="password" placeholder="Password" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Check Strength</button>
+                  <button type="button" class="btn btn-secondary ml-2" onclick="resetForm()">Reset</button>
+               </form>
+               <div id="passwordStrength"></div>
+            </div>
+         </div>
+         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+         <div class="container mt-5">
+            <h2>What Makes a Strong Password?</h2>
+            <div id="accordion">
+               <!-- Accordion Item 1 -->
+               <div class="card">
+                  <div class="card-header" id="headingOne">
+                     <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                           aria-controls="collapseOne">
+                        Length
+                        </button>
+                     </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                     <div class="card-body">
+                        <ul>
+                           <li>A password should be 16 characters or more; research has found that 45 percent of Americans use passwords of eight characters or less, which are not as secure as longer passwords.</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <!-- Accordion Item 2 -->
+               <div class="card">
+                  <div class="card-header" id="headingTwo">
+                     <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                           aria-controls="collapseTwo">
+                        Complexity
+                        </button>
+                     </h5>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                     <div class="card-body">
+                        <ul>
+                        <li>Have at least 1 uppercase</li>
+                        <li>Have at least 1 lowercase</li>
+                        <li>Have at least 1 special character " ! @ # $ % ^ & * _ - + = ~ ` : ; " ' < > , . ? / \ | ( ) "</li>
+                        <li>Have at least 1 uppercase</li>
+                     </div>
+                  </div>
+               </div>
+               <div class="card">
+                  <div class="card-header" id="headingThree">
+                     <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                           aria-controls="collapseThree">
+                        General Reccomendations
+                        </button>
+                     </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                     <div class="card-body">
+                        <ul>
+                        <li>Passwords should not be used in multiple places</li>
+                        <li>Passwords should not include personal information</li>
+                        <li>Passwords should not contain any consecutive letters or numbers</li>
+                        <li>Passwords should not be the word “password” or the same letter or number repeated</li>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- ... (remaining HTML code) ... -->
+         <script>
+            document.getElementById('passwordForm').addEventListener('submit', function (e) {
+              e.preventDefault();
+              checkPasswordStrength();
+            });
+            
+            function checkPasswordStrength() {
+              const password = document.getElementById('password').value;
+              const strengthElement = document.getElementById('passwordStrength');
+            
+              // Regular expressions for password requirements
+              const hasUppercase = /[A-Z]/.test(password);
+              const hasLowercase = /[a-z]/.test(password);
+              const hasNumber = /\d/.test(password);
+              const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+              const hasMinLength = password.length >= 12;
+            
+              let strengthMessage = '<strong>Password Strength:</strong><br>';
+            
+              if (hasUppercase && hasLowercase && hasNumber && hasSpecialChar && hasMinLength) {
+                strengthMessage += '<span class="text-success">Strong Password! Good job!</span>';
+              } else {
+                strengthMessage += '<span class="text-danger">Weak Password! Recommendations:</span><br>';
+                if (!hasUppercase) strengthMessage += '- Add at least 1 uppercase letter<br>';
+                if (!hasLowercase) strengthMessage += '- Add at least 1 lowercase letter<br>';
+                if (!hasNumber) strengthMessage += '- Add at least 1 number<br>';
+                if (!hasSpecialChar) strengthMessage += '- Add at least 1 special character<br>';
+                if (!hasMinLength) strengthMessage += '- Ensure the password is at least 12 characters long<br>';
+              }
+            
+              strengthElement.innerHTML = strengthMessage;
+            }
+            
+            function resetForm() {
+              document.getElementById('passwordForm').reset();
+              document.getElementById('passwordStrength').innerHTML = ''; // Clear the strength message
+            }
+         </script>
+      </div>
+      <footer class="bg-dark text-light mt-5">
+         <div class="container py-3">
+            <div class="row">
+               <div class="col-md-6">
+                  <p>&copy; 2023 Password Checker</p>
+               </div>
+               <div class="col-md-6 text-md-right">
+                  <p>Contact: contact@passwordchecker.com</p>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- Bootstrap JS (Popper.js and Bootstrap.js) -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   </body>
+</html>
